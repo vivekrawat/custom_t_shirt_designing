@@ -1,0 +1,70 @@
+/* handwriting */
+@import url('https://fonts.googleapis.com/css2?family=Delicious+Handrawn&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Freehand&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Alkatra&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Handlee&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Gochi+Hand&display=swap');
+/* display */
+@import url('https://fonts.googleapis.com/css2?family=Sedgwick+Ave+Display&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+Display&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Ruslan+Display&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Major+Mono+Display&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Big+Shoulders+Stencil+Display&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Almendra+Display&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Monoton&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nosifer&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Faster+One&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #535bf2;
+}
+
+
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+
+#app {
+  margin: 4rem auto;
+  padding: 1rem;
+  text-align: center;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
+}
