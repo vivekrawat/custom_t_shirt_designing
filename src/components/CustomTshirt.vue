@@ -3,7 +3,7 @@
     <div class="lg:flex w-full justify-center">
       <LeftOptions @send-data="addingElement" @sendEditData="updateElement" :editMode="editMode" :selectedData="selectedData" @delete="deleteElement" @closeEditMode="closeEditMode"/>
 
-      <div class="relative flex w-full lg:max-w-[450px] justify-center">
+      <div id="dwimage" class="relative flex w-full lg:max-w-[450px] justify-center">
         <img
           :src="imagePath"
           alt=""
@@ -15,7 +15,7 @@
           class="absolute w-[40%] h-[50%] top-[20%] z-10 hover:border-2 overflow-hidden"
         ></div>
       </div>
-      <RightSideOptions />
+      <RightSideOptions @download="downloadImage"/>
     </div>
   </div>
 </template>
@@ -25,6 +25,8 @@ import RightSideOptions from "./RightSideOptions.vue";
 import LeftOptions from "./LeftOptions.vue";
 import { computed, ref } from "vue";
 import useCustomTshirt from "../composables";
+import * as htmlToImage from 'html-to-image';
+import { toPng, toJpeg } from 'html-to-image';
 const { selectedStyle, selectedType, typeView } = useCustomTshirt();
 const imagePath = computed(() => {
   if (typeView.value === "front") {
@@ -173,5 +175,18 @@ const deleteElement = () => {
 }
 const updateElement = (data: inputData) => {
   updatingStyles(selectedElement.value,data)
+}
+const downloadImage = () => {
+  console.log('hit')
+  const img = document.getElementById('dwimage')
+  if (img) {
+  htmlToImage.toJpeg(img)
+  .then(function (dataUrl) {
+    var link = document.createElement('a');
+    link.download = 'design.jpeg';
+    link.href = dataUrl;
+    link.click();
+  });
+}
 }
 </script>

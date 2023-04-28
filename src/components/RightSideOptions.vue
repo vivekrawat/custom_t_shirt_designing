@@ -12,7 +12,7 @@
             <button @click="setTypeView('back')" :class="typeView === 'back'? 'bg-[#808080] text-white':''" class="px-3 uppercase rounded-md py-1 border-2">Back</button>
         </div>
         <div class="my-6 flex align-left">
-            <button class="bg-blue-600 hover:bg-blue-500 py-2 px-4 rounded-lg font-semibold uppercase hover:scale-110 text-white">Download</button>
+            <button @click="download()" class="bg-blue-600 hover:bg-blue-500 py-2 px-4 rounded-lg font-semibold uppercase hover:scale-110 text-white">Download</button>
         </div>
     </div>
 </template>
@@ -26,5 +26,9 @@ const changingType = () => {
     if (val) {
         setActiveType(val)
     }
+}
+const emit = defineEmits(['download'])
+const download = () => {
+    emit('download')
 }
 </script>
