@@ -13,7 +13,7 @@
         <div v-show="activeSection === 'text'">
             <div class="mt-4">
                 <button v-if="!editMode" @click="addText()" class="w-full uppercase py-2 bg-red-400 text-white rounded-md hover:bg-red-500 hover:scale-105">Add Text</button>
-                <input type="text" id="text" :value="text" @change="changeText($event)" placeholder="Write Your Own Text Here" class="bg-gray-50 mt-4 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                <input type="text" id="text" :value="text" @keyup="changeText($event)" placeholder="Write Your Own Text Here" class="bg-gray-50 mt-4 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
                 <div class="flex mt-4">
                     <input type="text" :value="colour" disabled class="h-[40px] disabled:bg-gray-200 disabled:text-gray-700 rounded-md bg-gray-50 text-sm p-2.5 border border-gray-300 text-gray-900">
                     <input type="color" id="head" name="head" @change="changeColour($event)" value="colour" class="rounded-lg cursor-pointer ml-[-15%] text-white h-8 my-1 text-left">

@@ -92,11 +92,7 @@ const addingElement = (data: inputData) => {
   updatingStyles(text, data)
 
   text.addEventListener("mouseover", () => {
-    // console.log("hello");
     text.style.cursor = "move";
-  });
-  text.addEventListener("dragstart", () => {
-    // console.log("moving mouse");
   });
   text.onmousedown = dragMouseDown;
   text.onclick = clickItem
@@ -123,8 +119,7 @@ const addingElement = (data: inputData) => {
     // set the element's new position:
     text.style.top = text.offsetTop - pos2 + "px";
     text.style.left = text.offsetLeft - pos1 + "px";
-    // const childBound = text.getBoundingClientRect()
-    
+    // const childBound = text.getBoundingClientRect() 
   }
   function closeDragElement() {
     // stop moving when mouse button is released:
@@ -177,16 +172,15 @@ const updateElement = (data: inputData) => {
   updatingStyles(selectedElement.value,data)
 }
 const downloadImage = () => {
-  console.log('hit')
   const img = document.getElementById('dwimage')
   if (img) {
-  htmlToImage.toJpeg(img)
-  .then(function (dataUrl) {
-    var link = document.createElement('a');
-    link.download = 'design.jpeg';
-    link.href = dataUrl;
-    link.click();
-  });
-}
+    htmlToImage.toJpeg(img)
+    .then(function (dataUrl) {
+      var link = document.createElement('a');
+      link.download = 'design.jpeg';
+      link.href = dataUrl;
+      link.click();
+    });
+  }
 }
 </script>
