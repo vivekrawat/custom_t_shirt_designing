@@ -49,7 +49,7 @@
             </div>
         </div>
         <div v-show="activeSection === 'art'">
-            <img v-show="image" id="image" class="h-[300px] object-contain w-[300px]" :src="image" alt="">
+            <!-- <img v-show="image" id="image" class="h-[300px] object-contain w-[300px]" :src="image" alt=""> -->
             <input class="mt-3 w-full" @change="changeImage($event)" type="file" accept="image/png, image/gif, image/jpeg">
         </div>
     </div>
@@ -61,24 +61,22 @@ import FontFamilySelector from './FontFamilySelector.vue'
 const activeSection = ref<'text'|'art'>('text')
 const changeActiveSection = (val: 'text'|'art') => {
     activeSection.value = val
+    closeEditMode()
 }
 
-const image = ref()
+// const image = ref()
 const changeImage = (e:any) => {
-    console.log('hit')
-    console.log(e.target.files[0])
-    let img  = window.document.getElementById('image')
-    if(img) {
-        // img.src = URL.createObjectURL(e.target.files[0]);
-    }
-    image.value = URL.createObjectURL(e.target.files[0])
+    // console.log('hit')
+    // console.log(e.target.files[0])
+    emits('sendImage', e.target.files[0])
+    // image.value = URL.createObjectURL(e.target.files[0])
 }
 
 const fontArray = [12,14,16,18,20,22,24,26,28,30,32,34,36,40,42,45,50,55,60,65,70,75,80]
 const paddingArray = [1,2,3,4,5,6,7,8,10,11,12,13,14,15,16,17,18]
 const letterSpacingArray = [1,2,3,4,5,6,7,8,10,11,12,13,14,15,16,17,18]
 const props = defineProps(['editMode', 'selectedData'])
-const emits = defineEmits(['sendData', 'delete', 'closeEditMode', 'sendEditData'])
+const emits = defineEmits(['sendData', 'delete', 'closeEditMode', 'sendEditData', 'sendImage'])
 const selectedData = ref(props.selectedData)
 watch(()=>props.selectedData, ()=> {
     console.log('data changed')
