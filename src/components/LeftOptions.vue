@@ -5,13 +5,11 @@
             <button @click="changeActiveSection('text')" :class="{'bg-gray-500 text-white' : activeSection==='text'}" class="border-2 rounded hover:scale-105 font-semibold px-4 py-2 mr-2">Add Text</button>
             <button @click="changeActiveSection('art')" :class="{'bg-gray-500 text-white' : activeSection==='art'}" class="px-4 py-2 rounded border-2 hover:scale-105 font-semibold">Browse Art</button>
         </div>
-        <div class="mt-4">
-            <button v-if="editMode" @click="closeEditMode()" class="w-full uppercase py-2 bg-red-400 text-white rounded-md hover:bg-red-500 hover:scale-105">
-            done
-            </button>
-        </div>
         <div v-show="activeSection === 'text'">
             <div class="mt-4">
+                <button v-if="editMode" @click="closeEditMode()" class="w-full uppercase py-2 bg-red-400 text-white rounded-md hover:bg-red-500 hover:scale-105">
+                    done
+                </button>
                 <button v-if="!editMode" @click="addText()" class="w-full uppercase py-2 bg-red-400 text-white rounded-md hover:bg-red-500 hover:scale-105">Add Text</button>
                 <input type="text" id="text" :value="text" @keyup="changeText($event)" placeholder="Write Your Own Text Here" class="bg-gray-50 mt-4 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
                 <div class="flex mt-4">
@@ -44,13 +42,13 @@
                     </select>
                 </div>
             </div>
-            <div v-if="editMode" class="text-left">
-                <button @click="deleteElement()" class="bg-red-500 text-white hover:scale-105 py-2 px-4 rounded uppercase">Delete</button>
-            </div>
         </div>
         <div v-show="activeSection === 'art'">
             <!-- <img v-show="image" id="image" class="h-[300px] object-contain w-[300px]" :src="image" alt=""> -->
             <input class="mt-3 w-full" @change="changeImage($event)" type="file" accept="image/png, image/gif, image/jpeg">
+        </div>
+        <div v-if="editMode" class="text-left mt-5">
+            <button @click="deleteElement()" class="bg-red-500 text-white hover:scale-105 py-2 px-4 rounded uppercase">Delete</button>
         </div>
     </div>
 </template>
@@ -64,10 +62,7 @@ const changeActiveSection = (val: 'text'|'art') => {
     closeEditMode()
 }
 
-// const image = ref()
 const changeImage = (e:any) => {
-    // console.log('hit')
-    // console.log(e.target.files[0])
     emits('sendImage', e.target.files[0])
     // image.value = URL.createObjectURL(e.target.files[0])
 }
@@ -75,11 +70,9 @@ const changeImage = (e:any) => {
 const fontArray = [12,14,16,18,20,22,24,26,28,30,32,34,36,40,42,45,50,55,60,65,70,75,80]
 const paddingArray = [1,2,3,4,5,6,7,8,10,11,12,13,14,15,16,17,18]
 const letterSpacingArray = [1,2,3,4,5,6,7,8,10,11,12,13,14,15,16,17,18]
-const props = defineProps(['editMode', 'selectedData'])
+const props = defineProps(['editMode', 'selectedData', 'editType'])
 const emits = defineEmits(['sendData', 'delete', 'closeEditMode', 'sendEditData', 'sendImage'])
-const selectedData = ref(props.selectedData)
 watch(()=>props.selectedData, ()=> {
-    console.log('data changed')
     colour.value = props.selectedData.colour
     bgColour.value = props.selectedData.bgColour
     padding.value = props.selectedData.padding
@@ -89,7 +82,13 @@ watch(()=>props.selectedData, ()=> {
     fontSize.value = props.selectedData.fontSize
     letterSpacing.value = props.selectedData.letterSpacing
     fontFamily.value = props.selectedData.fontFamily
-    console.log(text.value)
+})
+watch(()=> props.editType, () => {
+    if (props.editType === 'art') {
+        activeSection.value = 'art'
+    } if (props.editType === 'text') {
+        activeSection.value = 'text'
+    }
 })
 const colour = ref('#fffff')
 const bgColour = ref(null)

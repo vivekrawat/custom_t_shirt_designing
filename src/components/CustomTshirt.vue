@@ -6,6 +6,7 @@
         @sendImage="addingImageElement"
         @sendEditData="updateElement"
         :editMode="editMode"
+        :edit-type="editType"
         :selectedData="selectedData"
         @delete="deleteElement"
         @closeEditMode="closeEditMode"
@@ -73,6 +74,7 @@ const sampleData = {
 const selectedData = ref<inputData>({ ...sampleData });
 const selectedElement = ref<any>();
 const editMode = ref<boolean>(false);
+const editType = ref<'art'|'text'|null>(null)
 
 const updatingTextStyles = (e: any, data: inputData) => {
   e.style.position = "absolute";
@@ -105,7 +107,7 @@ const addingTextElement = (data: inputData) => {
     text.style.cursor = "move";
   });
   text.onmousedown = dragMouseDown;
-  text.onclick = clickItem;
+  text.onclick = clickTextItem;
   function dragMouseDown(e: any) {
     e = e || window.event;
     e.preventDefault();
@@ -146,10 +148,10 @@ const rgbToHex = (color: string) => {
       .join("")
   );
 };
-const clickItem = (e: any) => {
+const clickTextItem = (e: any) => {
   selectedElement.value = e.target;
-  console.log(selectedElement.value);
   editMode.value = true;
+  editType.value = 'text'
   let data: inputData = { ...sampleData };
   data.text = e.target.innerText;
   data.bold = e.target.style.fontWeight == 800;
@@ -165,7 +167,6 @@ const clickItem = (e: any) => {
     : null;
   data.fontFamily = e.target.className.slice(5);
   selectedData.value = data;
-  console.log(selectedData.value);
 };
 const closeEditMode = () => {
   selectedElement.value = null;
@@ -181,6 +182,11 @@ const deleteElement = () => {
 const updateElement = (data: inputData) => {
   updatingTextStyles(selectedElement.value, data);
 };
+const clickImageItem = (e: any) => {
+  editMode.value = true
+  editType.value = 'art'
+  selectedElement.value = e.target;
+}
 //image element
 const addingImageElement = (data: any) => {
   function update(activeAnchor: any) {
@@ -266,13 +272,9 @@ const addingImageElement = (data: any) => {
     group.add(anchor);
   }
 
-  console.log(data);
-  // let pos1 = 0,
-  //   pos2 = 0,
-  //   pos3 = 0,
-  //   pos4 = 0;
   var zone = document.getElementById("zone");
   const container = document.createElement("div");
+  container.onclick = clickImageItem 
   container.id = "container";
   zone?.appendChild(container);
 
